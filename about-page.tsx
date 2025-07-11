@@ -247,7 +247,7 @@ export default function AboutPage() {
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Soy Josef Nájera</h1>
                 <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
                   Durante años fui esclavo de la pornografía. Probé de todo: fuerza de voluntad, motivación, hábitos… nada funcionaba.
-                  <span className="font-semibold text-purple-900"> No fue hasta que conocí a Cristo que todo cambió.</span> Él no solo me perdonó, me transformó. Ahora dedico mi vida a ayudar a otros hombres a encontrar la libertad que solo Jesús puede dar.
+                  <span className="font-semibold text-purple-900"> No fue hasta que conocí a Cristo que todo cambió.</span> Él no solo me perdonó, me transformó. Ahora dedico mi vida a ayudar a otros hombres a encontrar la libertad que solo Jesús puede dar.</p>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="h-1 flex-grow bg-purple-900"></div>
