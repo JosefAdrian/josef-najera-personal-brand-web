@@ -15,7 +15,6 @@ export default function Component() {
     fullName?: string
     email?: string
   }>({})
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -46,15 +45,15 @@ export default function Component() {
     return Object.keys(errors).length === 0
   }
 
-    const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitError("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitError("")
 
     if (!validateForm()) {
-      return;
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
       // Envía los datos a tu webhook de n8n
@@ -67,21 +66,16 @@ export default function Component() {
           fullName,
           email,
         }),
-      });
+      })
 
-      setIsSubmitted(true);
-      setFullName("");
-      setEmail("");
-      setValidationErrors({});
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
+      // Redirect to thank you page instead of showing inline success
+      window.location.href = "/thank-you"
     } catch (error) {
-      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.");
+      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.")
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -426,28 +420,12 @@ export default function Component() {
                     <Button
                       type="submit"
                       className={`w-full font-bold py-4 text-lg transition-all duration-300 ${
-                        isLoading
-                          ? "bg-purple-700 cursor-not-allowed"
-                          : isSubmitted
-                            ? "bg-green-600 hover:bg-green-700"
-                            : "bg-purple-900 hover:bg-purple-800"
+                        isLoading ? "bg-purple-700 cursor-not-allowed" : "bg-purple-900 hover:bg-purple-800"
                       } text-white`}
-                      disabled={isLoading || isSubmitted}
+                      disabled={isLoading}
                     >
                       {isLoading ? (
                         <LoadingSpinner />
-                      ) : isSubmitted ? (
-                        <div className="flex items-center justify-center">
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M5 13l4 4L19 7"
-                            ></path>
-                          </svg>
-                          ¡Enviado!
-                        </div>
                       ) : (
                         <>
                           Obtener Guía Gratuita
@@ -462,28 +440,6 @@ export default function Component() {
                       </div>
                     )}
                   </form>
-                  {isSubmitted && (
-                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
-                      <div className="flex items-center text-green-800">
-                        <svg
-                          className="w-5 h-5 mr-2 flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          ></path>
-                        </svg>
-                        <span className="text-sm font-medium">
-                          ¡Perfecto! Revisa tu correo electrónico en los próximos minutos.
-                        </span>
-                      </div>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             </div>
@@ -887,28 +843,12 @@ center mr-4"
                     <Button
                       type="submit"
                       className={`w-full font-bold py-4 text-lg transition-all duration-300 ${
-                        isLoading
-                          ? "bg-purple-700 cursor-not-allowed"
-                          : isSubmitted
-                            ? "bg-green-600 hover:bg-green-700"
-                            : "bg-purple-900 hover:bg-purple-800"
+                        isLoading ? "bg-purple-700 cursor-not-allowed" : "bg-purple-900 hover:bg-purple-800"
                       } text-white`}
-                      disabled={isLoading || isSubmitted}
+                      disabled={isLoading}
                     >
                       {isLoading ? (
                         <LoadingSpinner />
-                      ) : isSubmitted ? (
-                        <div className="flex items-center justify-center">
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M5 13l4 4L19 7"
-                            ></path>
-                          </svg>
-                          ¡Guía Enviada!
-                        </div>
                       ) : (
                         <>
                           Obtén la Guía Gratuita Ahora

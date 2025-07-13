@@ -256,10 +256,10 @@ export default function ThankYouPage() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8">
               <CheckCircle className="h-20 w-20 text-green-600 mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">¡Gracias por Dar el Primer Paso!</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">¡Tu Guía Está en Camino!</h1>
               <p className="text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
-                Tu decisión de buscar libertad es valiente y honra a Dios. Acabas de tomar la decisión más importante
-                para tu futuro.
+                Gracias por dar el primer paso hacia tu libertad. Acabas de tomar la decisión más importante para tu
+                futuro espiritual.
               </p>
             </div>
 
@@ -267,13 +267,41 @@ export default function ThankYouPage() {
               <CardContent className="p-8">
                 <div className="flex items-center justify-center mb-6">
                   <Mail className="h-8 w-8 text-green-600 mr-3" />
-                  <h2 className="text-2xl font-bold text-gray-900">Tu Guía Está en Camino</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">Próximos Pasos</h2>
                 </div>
-                <p className="text-lg text-gray-700 mb-4">
-                  <span className="font-semibold">"Guía para dejar la lujuria"</span> llegará a tu correo electrónico en
-                  los próximos minutos.
-                </p>
-                <p className="text-gray-600">Revisa tu bandeja de entrada (y la carpeta de spam por si acaso).</p>
+                <div className="space-y-4 text-left">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">
+                      1
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Revisa tu correo electrónico</p>
+                      <p className="text-gray-600">
+                        La "Guía para dejar la lujuria" llegará en los próximos 5-10 minutos.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">
+                      2
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Verifica tu carpeta de spam</p>
+                      <p className="text-gray-600">Si no ves el correo, revisa tu carpeta de spam o promociones.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">
+                      3
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Lee la guía completa</p>
+                      <p className="text-gray-600">
+                        Dedica tiempo a estudiar cada paso. Tu libertad depende de aplicar lo que aprendas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -296,6 +324,56 @@ export default function ThankYouPage() {
                 mal, para daros el fin que esperáis."
               </p>
               <p className="text-purple-200 font-bold">- Jeremías 29:11</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Immediate Action Steps */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Mientras Esperas Tu Guía...</h2>
+              <p className="text-xl text-gray-700">Puedes empezar a preparar tu corazón con estos pasos:</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <Card className="bg-gray-50 border-none shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <Heart className="h-8 w-8 text-purple-900 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-900">Ora por Tu Libertad</h3>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Dedica unos minutos ahora mismo a orar. Pídele a Dios que prepare tu corazón para recibir Su verdad
+                    y que te dé la valentía para aplicar lo que vas a aprender.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gray-50 border-none shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    <Shield className="h-8 w-8 text-purple-900 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-900">Elimina las Tentaciones</h3>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Identifica qué aplicaciones, cuentas o situaciones te llevan a caer. Prepárate mentalmente para
+                    tomar decisiones radicales cuando leas la guía.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mt-12 text-center">
+              <div className="bg-purple-50 p-8 rounded-xl border-l-4 border-purple-900 max-w-2xl mx-auto">
+                <p className="text-lg text-gray-800 italic mb-2">
+                  "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de
+                  mal, para daros el fin que esperáis."
+                </p>
+                <p className="text-purple-900 font-bold">- Jeremías 29:11</p>
+              </div>
             </div>
           </div>
         </div>
@@ -372,8 +450,8 @@ export default function ThankYouPage() {
                       <div className="bg-purple-900 text-white p-8 rounded-2xl mb-8">
                         <h4 className="text-2xl font-bold mb-4">Oferta Especial</h4>
                         <div className="space-y-2">
-                          <p className="text-purple-200 line-through text-lg">Precio regular: $3,000MN</p>
-                          <p className="text-3xl font-bold">Solo $1,997MN</p>
+                          <p className="text-purple-200 line-through text-lg">Precio regular: $1,997MN</p>
+                          <p className="text-3xl font-bold">Solo $997MN</p>
                           <p className="text-purple-200 text-sm">Para nuevos miembros de la comunidad</p>
                         </div>
                       </div>
