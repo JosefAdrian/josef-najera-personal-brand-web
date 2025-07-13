@@ -9,7 +9,12 @@ import { Cross, Shield, Heart, ArrowRight, Mail, Quote } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
 export default function Component() {
+  const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
+  const [validationErrors, setValidationErrors] = useState<{
+    fullName?: string
+    email?: string
+  }>({})
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState("")
@@ -17,20 +22,51 @@ export default function Component() {
   const [isMenuHovered, setIsMenuHovered] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
+  // Email validation function
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  // Form validation
+  const validateForm = () => {
+    const errors: { fullName?: string; email?: string } = {}
+
+    if (!fullName.trim()) {
+      errors.fullName = "El nombre completo es requerido"
+    }
+
+    if (!email.trim()) {
+      errors.email = "El correo electrónico es requerido"
+    } else if (!validateEmail(email)) {
+      errors.email = "Por favor ingresa un correo electrónico válido"
+    }
+
+    setValidationErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
     setSubmitError("")
+
+    if (!validateForm()) {
+      return
+    }
+
+    setIsLoading(true)
 
     try {
       // Simulate API call with loading time
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      // Handle email submission here
-      // const response = await submitEmailToAPI(email)
+      // Handle form submission here
+      // const response = await submitFormToAPI({ firstName, lastName, email })
 
       setIsSubmitted(true)
-      setEmail("") // Clear form on success
+      setFullName("")
+      setEmail("")
+      setValidationErrors({})
       setTimeout(() => {
         setIsSubmitted(false)
       }, 5000)
@@ -332,23 +368,53 @@ export default function Component() {
                     Sin fuerza de voluntad. Solo verdad, convicción... y Jesús.
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="relative">
+                    {/* Full Name Field */}
+                    <div>
+                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                        Nombre Completo *
+                      </label>
                       <Input
-                        type="email"
-                        placeholder="Tu correo electrónico"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        id="fullName"
+                        type="text"
+                        placeholder="Tu nombre completo"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         required
                         disabled={isLoading}
                         className={`w-full text-lg py-4 transition-all duration-300 ${
                           isLoading ? "opacity-50 cursor-not-allowed" : ""
-                        } ${submitError ? "border-red-500 focus:border-red-500" : ""}`}
+                        } ${validationErrors.fullName ? "border-red-500 focus:border-red-500" : ""}`}
                       />
-                      {isLoading && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                          <div className="animate-spin h-5 w-5 border-2 border-purple-900 border-t-transparent rounded-full"></div>
-                        </div>
+                      {validationErrors.fullName && (
+                        <p className="text-red-600 text-sm mt-1">{validationErrors.fullName}</p>
                       )}
+                    </div>
+
+                    {/* Email Field */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        Correo Electrónico *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="tu@correo.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          disabled={isLoading}
+                          className={`w-full text-lg py-4 transition-all duration-300 ${
+                            isLoading ? "opacity-50 cursor-not-allowed" : ""
+                          } ${validationErrors.email ? "border-red-500 focus:border-red-500" : ""}`}
+                        />
+                        {isLoading && (
+                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <div className="animate-spin h-5 w-5 border-2 border-purple-900 border-t-transparent rounded-full"></div>
+                          </div>
+                        )}
+                      </div>
+                      {validationErrors.email && <p className="text-red-600 text-sm mt-1">{validationErrors.email}</p>}
                     </div>
 
                     <Button
@@ -428,9 +494,7 @@ export default function Component() {
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
               {/* Texto en la parte inferior */}
               <div className="absolute bottom-8 left-8 right-8">
-                <p className="text-white text-lg font-medium">
-                  "Donde está el Espíritu del Señor, allí hay libertad"
-                </p>
+                <p className="text-white text-lg font-medium">"Donde está el Espíritu del Señor, allí hay libertad"</p>
                 <p className="text-purple-200 text-sm mt-1">- 2 Corintios 3:17</p>
               </div>
             </div>
@@ -611,7 +675,10 @@ export default function Component() {
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Mi Historia de Libertad</h2>
                 <div className="flex items-center mb-8">
-                  <div className="w-16 h-16 bg-purple-900 rounded-full flex items-center justify-center mr-4">
+                  <div
+                    className="w-16 h-16 bg-purple-900 rounded-full flex items-center justify-
+center mr-4"
+                  >
                     <span className="text-white font-bold text-xl">JN</span>
                   </div>
                   <div>
@@ -761,24 +828,54 @@ export default function Component() {
                     <h4 className="text-xl font-bold">Obtenla Inmediatamente</h4>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="relative">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Full Name Field */}
+                    <div>
+                      <label htmlFor="ctaFullName" className="block text-sm font-medium text-gray-700 mb-1">
+                        Nombre Completo *
+                      </label>
                       <Input
-                        type="email"
-                        placeholder="Tu correo electrónico"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        id="ctaFullName"
+                        type="text"
+                        placeholder="Tu nombre completo"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                         required
                         disabled={isLoading}
                         className={`w-full text-lg py-4 transition-all duration-300 ${
                           isLoading ? "opacity-50 cursor-not-allowed" : ""
-                        } ${submitError ? "border-red-500 focus:border-red-500" : ""}`}
+                        } ${validationErrors.fullName ? "border-red-500 focus:border-red-500" : ""}`}
                       />
-                      {isLoading && (
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                          <div className="animate-spin h-5 w-5 border-2 border-purple-900 border-t-transparent rounded-full"></div>
-                        </div>
+                      {validationErrors.fullName && (
+                        <p className="text-red-600 text-xs mt-1">{validationErrors.fullName}</p>
                       )}
+                    </div>
+
+                    {/* Email Field */}
+                    <div>
+                      <label htmlFor="ctaEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                        Correo Electrónico *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="ctaEmail"
+                          type="email"
+                          placeholder="tu@correo.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          disabled={isLoading}
+                          className={`w-full text-lg py-4 transition-all duration-300 ${
+                            isLoading ? "opacity-50 cursor-not-allowed" : ""
+                          } ${validationErrors.email ? "border-red-500 focus:border-red-500" : ""}`}
+                        />
+                        {isLoading && (
+                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <div className="animate-spin h-5 w-5 border-2 border-purple-900 border-t-transparent rounded-full"></div>
+                          </div>
+                        )}
+                      </div>
+                      {validationErrors.email && <p className="text-red-600 text-xs mt-1">{validationErrors.email}</p>}
                     </div>
 
                     <Button
