@@ -664,4 +664,3 @@ entonces este es tu siguiente paso:
     </div>
   )
 }
-<div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
