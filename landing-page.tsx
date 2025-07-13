@@ -46,36 +46,42 @@ export default function Component() {
     return Object.keys(errors).length === 0
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitError("")
+    const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError("");
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      // Simulate API call with loading time
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Envía los datos a tu webhook de n8n
+      await fetch("https://n8n-railway-josef-production.up.railway.app/webhook/enviar-guia", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+        }),
+      });
 
-      // Handle form submission here
-      // const response = await submitFormToAPI({ firstName, lastName, email })
-
-      setIsSubmitted(true)
-      setFullName("")
-      setEmail("")
-      setValidationErrors({})
+      setIsSubmitted(true);
+      setFullName("");
+      setEmail("");
+      setValidationErrors({});
       setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
+        setIsSubmitted(false);
+      }, 5000);
     } catch (error) {
-      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.")
+      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
