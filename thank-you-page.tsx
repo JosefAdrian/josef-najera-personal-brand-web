@@ -22,7 +22,7 @@ export default function ThankYouPage() {
 
   const handleBookCall = () => {
     // Replace with actual Calendly link
-    window.open("https://calendly.com/your-calendly-link", "_blank")
+    window.open("https://www.instagram.com/direct/t/116638503065633/", "_blank")
   }
 
   const toggleMobileMenu = () => {

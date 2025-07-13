@@ -308,7 +308,7 @@ export default function Component() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side - Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 z-10">
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                   Dejar la lujuria es mucho más fácil
@@ -416,21 +416,22 @@ export default function Component() {
               </Card>
             </div>
 
-            {/* Right Side - Image */}
-            <div className="relative">
-              <div className="aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="/placeholder.svg?height=600&width=480"
-                  alt="Hombre joven orando, buscando libertad en Cristo"
-                  className="w-full h-full object-cover opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-white text-lg font-medium">
-                    "Donde está el Espíritu del Señor, allí hay libertad"
-                  </p>
-                  <p className="text-purple-200 text-sm mt-1">- 2 Corintios 3:17</p>
-                </div>
+            <div className="relative aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+              {/* Imagen de fondo */}
+              <img
+                src="https://josefnajera.com/images/discipline-praying.jpg"
+                alt="Hombre joven orando"
+                className="w-full h-full object-cover opacity-80"
+                draggable={false}
+              />
+              {/* Overlay degradado */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
+              {/* Texto en la parte inferior */}
+              <div className="absolute bottom-8 left-8 right-8">
+                <p className="text-white text-lg font-medium">
+                  "Donde está el Espíritu del Señor, allí hay libertad"
+                </p>
+                <p className="text-purple-200 text-sm mt-1">- 2 Corintios 3:17</p>
               </div>
             </div>
           </div>
@@ -448,11 +449,11 @@ export default function Component() {
             <div className="order-2 lg:order-1">
               <div className="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/placeholder.svg?height=450&width=600"
+                  src="https://josefnajera.com/images/discipline-sad.jpg"
                   alt="Hombre joven luchando con adicción, sintiendo vergüenza y soledad"
                   className="w-full h-full object-cover opacity-70"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-transparent to-gray-900/80" />
               </div>
             </div>
 
@@ -572,7 +573,7 @@ export default function Component() {
             <div className="relative">
               <div className="aspect-[4/5] bg-gradient-to-br from-purple-100 to-white rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/placeholder.svg?height=600&width=480"
+                  src="https://josefnajera.com/images/discipline-sad2.jpg"
                   alt="Hombre libre, caminando en la luz de Cristo, con esperanza y propósito"
                   className="w-full h-full object-cover"
                 />
@@ -594,8 +595,8 @@ export default function Component() {
             <div className="relative">
               <div className="aspect-[4/5] bg-gradient-to-br from-gray-200 to-gray-100 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/placeholder.svg?height=600&width=480"
-                  alt="Juan Carlos, coach cristiano, sonriendo con confianza y paz"
+                  src="https://josefnajera.com/images/yofeli-edited.jpg"
+                  alt="Josef Nájera, creador de contenido Cristiano"
                   className="w-full h-full object-cover"
                 />
               </div>

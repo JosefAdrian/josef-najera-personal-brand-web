@@ -12,7 +12,7 @@ export default function AboutPage() {
 
   const handleBookCall = () => {
     // Replace with actual Calendly link
-    window.open("https://calendly.com/your-calendly-link", "_blank")
+    window.open("https://www.instagram.com/direct/t/116638503065633/", "_blank")
   }
 
   const toggleMobileMenu = () => {
@@ -242,7 +242,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side - Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 z-10">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Soy Josef Nájera</h1>
                 <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
@@ -256,28 +256,30 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right Side - Image */}
-            <div className="relative">
-              <div className="aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="/placeholder.svg?height=600&width=480"
-                  alt="Juan Carlos, coach cristiano para hombres"
-                  className="w-full h-full object-cover opacity-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                      <span className="text-purple-900 font-bold">JN</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-bold">Josef Nájera</p>
-                      <p className="text-purple-200 text-sm">Creador de contenido Cristiano para Hombres</p>
-                    </div>
-                  </div>
+            <div className="relative aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Imagen de fondo */}
+            <img
+              src="https://josefnajera.com/images/yofeli-edited.jpg"
+              alt="Josef Nájera, creador de contenido cristiano para hombres"
+              className="w-full h-full object-cover opacity-90"
+              draggable={false}
+            />
+            {/* Overlay degradado */}
+            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
+            {/* Info en la parte inferior */}
+            <div className="absolute bottom-8 left-8 right-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                  <span className="text-purple-900 font-bold">JN</span>
+                </div>
+                <div>
+                  <p className="text-white font-bold">Josef Nájera</p>
+                  <p className="text-purple-200 text-sm">Creador de contenido Cristiano para Hombres</p>
                 </div>
               </div>
             </div>
+          </div>
+
           </div>
         </div>
       </section>
@@ -316,9 +318,9 @@ export default function AboutPage() {
                   </Card>
                 </div>
                 <div className="order-1 lg:order-2">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-lg">
+                  <div className="aspect-[4/5] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="/placeholder.svg?height=450&width=600"
+                      src="https://josefnajera.com/images/discipline-sad2.jpg"
                       alt="Joven adolescente luchando con tentaciones"
                       className="w-full h-full object-cover"
                     />
@@ -329,13 +331,13 @@ export default function AboutPage() {
               {/* The Struggle - Split Layout */}
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <div className="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-lg">
+                  <div className="aspect-[4/5] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="/placeholder.svg?height=450&width=600"
+                      src="https://josefnajera.com/images/discipline-rewards.jpg"
                       alt="Hombre joven en lucha espiritual"
                       className="w-full h-full object-cover opacity-70"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent to-gray-900/80 z-0"></div>
                   </div>
                 </div>
                 <div>
@@ -394,7 +396,7 @@ Y eso lo cambió todo.
                 <div className="order-1 lg:order-2">
                   <div className="aspect-[4/3] bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="/placeholder.svg?height=450&width=600"
+                      src="https://josefnajera.com/images/crying.jpg"
                       alt="Hombre orando en rendición total"
                       className="w-full h-full object-cover"
                     />
@@ -405,9 +407,9 @@ Y eso lo cambió todo.
               {/* The Transformation - Split Layout */}
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <div className="aspect-[4/3] bg-gradient-to-br from-green-50 to-green-100 rounded-2xl overflow-hidden shadow-lg">
+                  <div className="aspect-[4/4] bg-gradient-to-br from-green-50 to-green-100 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="/placeholder.svg?height=450&width=600"
+                      src="https://josefnajera.com/images/discipline-praying.jpg"
                       alt="Hombre libre caminando en victoria"
                       className="w-full h-full object-cover"
                     />
@@ -457,7 +459,7 @@ pero que yo nunca había creído de verdad:</p>
       <section className="py-32 bg-gray-900 text-white relative">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/placeholder.svg?height=800&width=1600"
+            src="https://josefnajera.com/images/discipline-praying.jpg"
             alt="Hombre en oración"
             className="w-full h-full object-cover opacity-20"
           />
@@ -507,8 +509,8 @@ Y cuando por fin respiré libertad, supe que no podía quedarme callado.
               <div>
                 <div className="aspect-[4/3] bg-gradient-to-br from-purple-50 to-white rounded-2xl overflow-hidden shadow-lg">
                   <img
-                    src="/placeholder.svg?height=450&width=600"
-                    alt="Juan Carlos mentorando a hombres jóvenes"
+                    src="https://josefnajera.com/images/discipline-reading.jpg"
+                    alt="Hombre joven leyendo"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -662,3 +664,4 @@ entonces este es tu siguiente paso:
     </div>
   )
 }
+<div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
