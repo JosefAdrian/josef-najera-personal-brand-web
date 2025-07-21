@@ -447,7 +447,7 @@ export default function Component() {
             <div className="relative aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
               {/* Imagen de fondo */}
               <img
-                src="https://josefnajera.com/images/discipline-praying.jpg"
+                src="http://media.josefnajera.com/fotos-web/discipline-praying.jpg"
                 alt="Hombre joven orando"
                 className="w-full h-full object-cover opacity-80"
                 draggable={false}
@@ -475,7 +475,7 @@ export default function Component() {
             <div className="order-2 lg:order-1">
               <div className="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://josefnajera.com/images/discipline-sad.jpg"
+                  src="https://media.josefnajera.com/fotos-web/discipline-sad.jpg"
                   alt="Hombre joven luchando con adicción, sintiendo vergüenza y soledad"
                   className="w-full h-full object-cover opacity-70"
                 />
@@ -599,7 +599,7 @@ export default function Component() {
             <div className="relative">
               <div className="aspect-[4/5] bg-gradient-to-br from-purple-100 to-white rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://josefnajera.com/images/discipline-sad2.jpg"
+                  src="https://media.josefnajera.com/fotos-web/discipline-sad2.jpg"
                   alt="Hombre libre, caminando en la luz de Cristo, con esperanza y propósito"
                   className="w-full h-full object-cover"
                 />
@@ -621,7 +621,7 @@ export default function Component() {
             <div className="relative">
               <div className="aspect-[4/5] bg-gradient-to-br from-gray-200 to-gray-100 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://josefnajera.com/images/yofeli-edited.jpg"
+                  src="https://media.josefnajera.com/fotos-web/yofeli-edited.jpg"
                   alt="Josef Nájera, creador de contenido Cristiano"
                   className="w-full h-full object-cover"
                 />

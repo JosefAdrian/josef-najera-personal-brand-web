@@ -259,7 +259,7 @@ export default function AboutPage() {
             <div className="relative aspect-[4/5] bg-gradient-to-br from-purple-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl">
             {/* Imagen de fondo */}
             <img
-              src="https://josefnajera.com/images/yofeli-edited.jpg"
+              src="https://media.josefnajera.com/fotos-web/yofeli-edited.jpg"
               alt="Josef Nájera, creador de contenido cristiano para hombres"
               className="w-full h-full object-cover opacity-90"
               draggable={false}
@@ -320,7 +320,7 @@ export default function AboutPage() {
                 <div className="order-1 lg:order-2">
                   <div className="aspect-[4/5] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="https://josefnajera.com/images/discipline-sad2.jpg"
+                      src="https://media.josefnajera.com/fotos-web/discipline-sad2.jpg"
                       alt="Joven adolescente luchando con tentaciones"
                       className="w-full h-full object-cover"
                     />
@@ -333,7 +333,7 @@ export default function AboutPage() {
                 <div>
                   <div className="aspect-[4/5] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="https://josefnajera.com/images/discipline-rewards.jpg"
+                      src="https://media.josefnajera.com/fotos-web/discipline-rewards.jpg"
                       alt="Hombre joven en lucha espiritual"
                       className="w-full h-full object-cover opacity-70"
                     />
@@ -396,7 +396,7 @@ Y eso lo cambió todo.
                 <div className="order-1 lg:order-2">
                   <div className="aspect-[4/3] bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="https://josefnajera.com/images/crying.jpg"
+                      src="https://media.josefnajera.com/fotos-web/crying.jpg"
                       alt="Hombre orando en rendición total"
                       className="w-full h-full object-cover"
                     />
@@ -409,7 +409,7 @@ Y eso lo cambió todo.
                 <div>
                   <div className="aspect-[4/4] bg-gradient-to-br from-green-50 to-green-100 rounded-2xl overflow-hidden shadow-lg">
                     <img
-                      src="https://josefnajera.com/images/discipline-praying.jpg"
+                      src="https://media.josefnajera.com/fotos-web/discipline-praying.jpg"
                       alt="Hombre libre caminando en victoria"
                       className="w-full h-full object-cover"
                     />
@@ -459,7 +459,7 @@ pero que yo nunca había creído de verdad:</p>
       <section className="py-32 bg-gray-900 text-white relative">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="https://josefnajera.com/images/discipline-praying.jpg"
+            src="https://media.josefnajera.com/fotos-web/images/discipline-praying.jpg"
             alt="Hombre en oración"
             className="w-full h-full object-cover opacity-20"
           />
@@ -509,7 +509,7 @@ Y cuando por fin respiré libertad, supe que no podía quedarme callado.
               <div>
                 <div className="aspect-[4/3] bg-gradient-to-br from-purple-50 to-white rounded-2xl overflow-hidden shadow-lg">
                   <img
-                    src="https://josefnajera.com/images/discipline-reading.jpg"
+                    src="https://media.josefnajera.com/fotos-web/discipline-reading.jpg"
                     alt="Hombre joven leyendo"
                     className="w-full h-full object-cover"
                   />
