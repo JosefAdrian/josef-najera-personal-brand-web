@@ -1,120 +1,128 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { Cross, Shield, Heart, ArrowRight, Mail, Quote } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Cross, Shield, Heart, ArrowRight, Mail, Quote } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Component() {
-  const [fullName, setFullName] = useState("")
-  const [email, setEmail] = useState("")
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<{
-    fullName?: string
-    email?: string
-  }>({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [submitError, setSubmitError] = useState("")
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMenuHovered, setIsMenuHovered] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
+    fullName?: string;
+    email?: string;
+  }>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Email validation function
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   // Form validation
   const validateForm = () => {
-    const errors: { fullName?: string; email?: string } = {}
+    const errors: { fullName?: string; email?: string } = {};
 
     if (!fullName.trim()) {
-      errors.fullName = "El nombre completo es requerido"
+      errors.fullName = "El nombre completo es requerido";
     }
 
     if (!email.trim()) {
-      errors.email = "El correo electrónico es requerido"
+      errors.email = "El correo electrónico es requerido";
     } else if (!validateEmail(email)) {
-      errors.email = "Por favor ingresa un correo electrónico válido"
+      errors.email = "Por favor ingresa un correo electrónico válido";
     }
 
-    setValidationErrors(errors)
-    return Object.keys(errors).length === 0
-  }
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitError("")
+    e.preventDefault();
+    setSubmitError("");
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
       // Envía los datos a tu webhook de n8n
-      await fetch("https://n8n-railway-josef-production.up.railway.app/webhook/enviar-guia", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName,
-          email,
-        }),
-      })
+      await fetch(
+        "https://n8n-railway-josef-production.up.railway.app/webhook/enviar-guia",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName,
+            email,
+          }),
+        }
+      );
 
       // Redirect to thank you page instead of showing inline success
-      window.location.href = "/thank-you"
+      window.location.href = "/thank-you";
     } catch (error) {
-      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.")
+      setSubmitError("Hubo un error. Por favor, inténtalo de nuevo.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   // Close menu on scroll if not hovering
   useEffect(() => {
     const handleScroll = () => {
       if (isMobileMenuOpen && !isMenuHovered) {
-        closeMobileMenu()
+        closeMobileMenu();
       }
-    }
+    };
 
     if (isMobileMenuOpen) {
-      window.addEventListener("scroll", handleScroll, { passive: true })
+      window.addEventListener("scroll", handleScroll, { passive: true });
     }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [isMobileMenuOpen, isMenuHovered])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMobileMenuOpen, isMenuHovered]);
 
   // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node) && isMobileMenuOpen) {
-        closeMobileMenu()
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        isMobileMenuOpen
+      ) {
+        closeMobileMenu();
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    // CAMBIA 'mousedown' por 'click' aquí:
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [isMobileMenuOpen])
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   // Loading Spinner Component
   const LoadingSpinner = () => (
@@ -125,7 +133,14 @@ export default function Component() {
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
         <path
           className="opacity-75"
           fill="currentColor"
@@ -134,7 +149,7 @@ export default function Component() {
       </svg>
       Enviando...
     </div>
-  )
+  );
 
   // Add this style to the component
   const fadeInStyle = `
@@ -151,7 +166,7 @@ export default function Component() {
     .animate-fade-in {
       animation: fade-in 0.5s ease-out;
     }
-  `
+  `;
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -219,7 +234,9 @@ export default function Component() {
                     />
                     <span
                       className={`absolute left-0 top-3 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out ${
-                        isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100 group-hover:bg-purple-900"
+                        isMobileMenuOpen
+                          ? "opacity-0 scale-0"
+                          : "opacity-100 scale-100 group-hover:bg-purple-900"
                       }`}
                     />
                     <span
@@ -240,7 +257,9 @@ export default function Component() {
         <div
           ref={menuRef}
           className={`md:hidden fixed inset-0 top-[73px] z-40 transition-all duration-500 ease-out ${
-            isMobileMenuOpen ? "opacity-100 visible backdrop-blur-sm" : "opacity-0 invisible backdrop-blur-none"
+            isMobileMenuOpen
+              ? "opacity-100 visible backdrop-blur-sm"
+              : "opacity-0 invisible backdrop-blur-none"
           }`}
         >
           {/* Background Overlay */}
@@ -254,7 +273,9 @@ export default function Component() {
           {/* Menu Content */}
           <div
             className={`relative bg-white shadow-2xl transition-all duration-500 ease-out transform ${
-              isMobileMenuOpen ? "translate-y-0 opacity-100 scale-100" : "-translate-y-8 opacity-0 scale-95"
+              isMobileMenuOpen
+                ? "translate-y-0 opacity-100 scale-100"
+                : "-translate-y-8 opacity-0 scale-95"
             }`}
             onMouseEnter={() => setIsMenuHovered(true)}
             onMouseLeave={() => setIsMenuHovered(false)}
@@ -266,7 +287,9 @@ export default function Component() {
                 <a
                   href="/"
                   className={`text-lg font-medium text-gray-700 hover:text-purple-900 hover:bg-purple-50 transition-all duration-300 py-4 px-4 rounded-lg border-b border-gray-100 transform group ${
-                    isMobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+                    isMobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-8 opacity-0"
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? "100ms" : "0ms",
@@ -282,7 +305,9 @@ export default function Component() {
                 <a
                   href="/about"
                   className={`text-lg font-medium text-gray-700 hover:text-purple-900 hover:bg-purple-50 transition-all duration-300 py-4 px-4 rounded-lg border-b border-gray-100 transform group ${
-                    isMobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+                    isMobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-8 opacity-0"
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? "200ms" : "0ms",
@@ -298,7 +323,9 @@ export default function Component() {
                 {/* CTA Button with Special Animation */}
                 <div
                   className={`mt-6 transform transition-all duration-500 ${
-                    isMobileMenuOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-4 opacity-0 scale-95"
+                    isMobileMenuOpen
+                      ? "translate-y-0 opacity-100 scale-100"
+                      : "translate-y-4 opacity-0 scale-95"
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? "300ms" : "0ms",
@@ -321,7 +348,9 @@ export default function Component() {
                 {/* Decorative Element */}
                 <div
                   className={`mt-8 flex items-center justify-center transform transition-all duration-500 ${
-                    isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                    isMobileMenuOpen
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-4 opacity-0"
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen ? "400ms" : "0ms",
@@ -340,7 +369,10 @@ export default function Component() {
       </header>
 
       {/* Hero Section - Split Layout */}
-      <section id="inicio" className="py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white">
+      <section
+        id="inicio"
+        className="py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white"
+      >
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side - Content */}
@@ -348,12 +380,18 @@ export default function Component() {
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                   Dejar la lujuria es mucho más fácil
-                  <span className="block text-purple-900">de lo que crees con ayuda de Cristo...</span>
+                  <span className="block text-purple-900">
+                    de lo que crees con ayuda de Cristo...
+                  </span>
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-                  Si sigues cayendo, no es porque seas débil. Es porque no te has dado cuenta de que
-                  <span className="font-semibold text-purple-900"> no necesitas</span>. seguir ahí. Cristo puede
-                  liberarte completamente.
+                  Si sigues cayendo, no es porque seas débil. Es porque no te
+                  has dado cuenta de que
+                  <span className="font-semibold text-purple-900">
+                    {" "}
+                    no necesitas
+                  </span>
+                  . seguir ahí. Cristo puede liberarte completamente.
                 </p>
               </div>
 
@@ -361,16 +399,24 @@ export default function Component() {
                 <CardContent className="p-8">
                   <div className="flex items-center mb-6">
                     <Mail className="h-6 w-6 text-purple-900 mr-3" />
-                    <h3 className="text-xl font-bold text-gray-900">Recibe la guía gratis</h3>
+                    <h3 className="text-xl font-bold text-gray-900">
+                      Recibe la guía gratis
+                    </h3>
                   </div>
                   <p className="text-gray-700 mb-6 text-lg">
-                    <span className="font-semibold">Una guía paso a paso para dejar la lujuria desde la raíz.</span> -
-                    Sin fuerza de voluntad. Solo verdad, convicción... y Jesús.
+                    <span className="font-semibold">
+                      Una guía paso a paso para dejar la lujuria desde la raíz.
+                    </span>{" "}
+                    - Sin fuerza de voluntad. Solo verdad, convicción... y
+                    Jesús.
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Full Name Field */}
                     <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="fullName"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Nombre Completo *
                       </label>
                       <Input
@@ -383,16 +429,25 @@ export default function Component() {
                         disabled={isLoading}
                         className={`w-full text-lg py-4 transition-all duration-300 ${
                           isLoading ? "opacity-50 cursor-not-allowed" : ""
-                        } ${validationErrors.fullName ? "border-red-500 focus:border-red-500" : ""}`}
+                        } ${
+                          validationErrors.fullName
+                            ? "border-red-500 focus:border-red-500"
+                            : ""
+                        }`}
                       />
                       {validationErrors.fullName && (
-                        <p className="text-red-600 text-sm mt-1">{validationErrors.fullName}</p>
+                        <p className="text-red-600 text-sm mt-1">
+                          {validationErrors.fullName}
+                        </p>
                       )}
                     </div>
 
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Correo Electrónico *
                       </label>
                       <div className="relative">
@@ -406,7 +461,11 @@ export default function Component() {
                           disabled={isLoading}
                           className={`w-full text-lg py-4 transition-all duration-300 ${
                             isLoading ? "opacity-50 cursor-not-allowed" : ""
-                          } ${validationErrors.email ? "border-red-500 focus:border-red-500" : ""}`}
+                          } ${
+                            validationErrors.email
+                              ? "border-red-500 focus:border-red-500"
+                              : ""
+                          }`}
                         />
                         {isLoading && (
                           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -414,13 +473,19 @@ export default function Component() {
                           </div>
                         )}
                       </div>
-                      {validationErrors.email && <p className="text-red-600 text-sm mt-1">{validationErrors.email}</p>}
+                      {validationErrors.email && (
+                        <p className="text-red-600 text-sm mt-1">
+                          {validationErrors.email}
+                        </p>
+                      )}
                     </div>
 
                     <Button
                       type="submit"
                       className={`w-full font-bold py-4 text-lg transition-all duration-300 ${
-                        isLoading ? "bg-purple-700 cursor-not-allowed" : "bg-purple-900 hover:bg-purple-800"
+                        isLoading
+                          ? "bg-purple-700 cursor-not-allowed"
+                          : "bg-purple-900 hover:bg-purple-800"
                       } text-white`}
                       disabled={isLoading}
                     >
@@ -456,8 +521,12 @@ export default function Component() {
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
               {/* Texto en la parte inferior */}
               <div className="absolute bottom-8 left-8 right-8">
-                <p className="text-white text-lg font-medium">"Donde está el Espíritu del Señor, allí hay libertad"</p>
-                <p className="text-purple-200 text-sm mt-1">- 2 Corintios 3:17</p>
+                <p className="text-white text-lg font-medium">
+                  "Donde está el Espíritu del Señor, allí hay libertad"
+                </p>
+                <p className="text-purple-200 text-sm mt-1">
+                  - 2 Corintios 3:17
+                </p>
               </div>
             </div>
           </div>
@@ -491,34 +560,41 @@ export default function Component() {
 
               <div className="space-y-8">
                 <div className="border-l-4 border-purple-400 pl-8">
-                  <h3 className="text-2xl font-bold mb-4 text-purple-300">Yo también fui ese tipo atrapado.</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-purple-300">
+                    Yo también fui ese tipo atrapado.
+                  </h3>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    Que pedía perdón, lloraba, prometía, y al día siguiente estaba otra vez cayendo. Un ciclo que no se
-                    detiene.
+                    Que pedía perdón, lloraba, prometía, y al día siguiente
+                    estaba otra vez cayendo. Un ciclo que no se detiene.
                   </p>
                 </div>
 
                 <div className="border-l-4 border-purple-400 pl-8">
-                  <h3 className="text-2xl font-bold mb-4 text-purple-300">Te sientes miserable.</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-purple-300">
+                    Te sientes miserable.
+                  </h3>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    Una mezcla de culpa, vergüenza y sin poder controlarte a ti mismo. Pero lo más duro en el fondo es
-                    que...
+                    Una mezcla de culpa, vergüenza y sin poder controlarte a ti
+                    mismo. Pero lo más duro en el fondo es que...
                   </p>
                 </div>
 
                 <div className="border-l-4 border-purple-400 pl-8">
-                  <h3 className="text-2xl font-bold mb-4 text-purple-300">No quieres dejar la lujuria.</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-purple-300">
+                    No quieres dejar la lujuria.
+                  </h3>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    Piensas que al dejarla vas a perder algo. Una sensación. Una válvula de escape. Una parte de ti. Y
-                    mientras sigas creyendo eso, vas a seguir atrapado.
+                    Piensas que al dejarla vas a perder algo. Una sensación. Una
+                    válvula de escape. Una parte de ti. Y mientras sigas
+                    creyendo eso, vas a seguir atrapado.
                   </p>
                 </div>
               </div>
 
               <div className="bg-purple-900/30 p-8 rounded-xl border border-purple-700">
                 <p className="text-xl text-purple-200 font-medium text-center">
-                  “Huye también de las pasiones juveniles, y sigue la justicia, la fe, el amor y la paz...” — 2 Timoteo
-                  2:22
+                  “Huye también de las pasiones juveniles, y sigue la justicia,
+                  la fe, el amor y la paz...” — 2 Timoteo 2:22
                 </p>
               </div>
             </div>
@@ -543,20 +619,25 @@ export default function Component() {
               </div>
 
               <p className="text-xl text-gray-700 leading-relaxed">
-                La lujuria no te da nada. Solo te esclaviza. Solo te corrompe. No te relaja. No te libera. No te ayuda a
-                amar más. Al contrario.
+                La lujuria no te da nada. Solo te esclaviza. Solo te corrompe.
+                No te relaja. No te libera. No te ayuda a amar más. Al
+                contrario.
               </p>
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl">
                   <Cross className="h-8 w-8 text-purple-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold mb-2">La lujuria NO te da nada</h3>
+                    <h3 className="text-xl font-bold mb-2">
+                      La lujuria NO te da nada
+                    </h3>
                     <p className="text-gray-700">
-                      La lujuria no te da nada. Solo te esclaviza. Solo te corrompe. No te relaja. No te libera. No te
-                      ayuda a amar más. Al contrario. “Huyan de la inmoralidad sexual. Todos los demás pecados que una
-                      persona comete quedan fuera de su cuerpo; pero el que comete inmoralidades sexuales, peca contra
-                      su propio cuerpo.” — 1 Corintios 6:18
+                      La lujuria no te da nada. Solo te esclaviza. Solo te
+                      corrompe. No te relaja. No te libera. No te ayuda a amar
+                      más. Al contrario. “Huyan de la inmoralidad sexual. Todos
+                      los demás pecados que una persona comete quedan fuera de
+                      su cuerpo; pero el que comete inmoralidades sexuales, peca
+                      contra su propio cuerpo.” — 1 Corintios 6:18
                     </p>
                   </div>
                 </div>
@@ -564,11 +645,15 @@ export default function Component() {
                 <div className="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl">
                   <Shield className="h-8 w-8 text-purple-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold mb-2">Córtalo de raíz y aléjate de la lujuria</h3>
+                    <h3 className="text-xl font-bold mb-2">
+                      Córtalo de raíz y aléjate de la lujuria
+                    </h3>
                     <p className="text-gray-700">
-                      Cristo no te pide que luches con fuerza de voluntad. Te pide que cortes de raíz. Y te alejes de la
-                      lujuria. “Si tu ojo derecho te hace caer en pecado, sácatelo y tíralo. Más te vale perder una
-                      parte de tu cuerpo que ser arrojado con todo tu cuerpo al infierno.” — Mateo 5:29
+                      Cristo no te pide que luches con fuerza de voluntad. Te
+                      pide que cortes de raíz. Y te alejes de la lujuria. “Si tu
+                      ojo derecho te hace caer en pecado, sácatelo y tíralo. Más
+                      te vale perder una parte de tu cuerpo que ser arrojado con
+                      todo tu cuerpo al infierno.” — Mateo 5:29
                     </p>
                   </div>
                 </div>
@@ -576,11 +661,15 @@ export default function Component() {
                 <div className="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl">
                   <Heart className="h-8 w-8 text-purple-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold mb-2">Date cuenta con que caes y evítalo</h3>
+                    <h3 className="text-xl font-bold mb-2">
+                      Date cuenta con que caes y evítalo
+                    </h3>
                     <p className="text-gray-700">
-                      ¿Tu teléfono? ¿Una cuenta de Instagram? ¿Una conversación que alimenta tu carne? Córtala. “Si tu
-                      ojo derecho te hace caer en pecado, sácatelo y tíralo. Más te vale perder una parte de tu cuerpo
-                      que ser arrojado con todo tu cuerpo al infierno.” — Mateo 5:29
+                      ¿Tu teléfono? ¿Una cuenta de Instagram? ¿Una conversación
+                      que alimenta tu carne? Córtala. “Si tu ojo derecho te hace
+                      caer en pecado, sácatelo y tíralo. Más te vale perder una
+                      parte de tu cuerpo que ser arrojado con todo tu cuerpo al
+                      infierno.” — Mateo 5:29
                     </p>
                   </div>
                 </div>
@@ -588,8 +677,8 @@ export default function Component() {
 
               <div className="bg-purple-50 p-8 rounded-xl border-l-4 border-purple-900">
                 <p className="text-lg text-gray-800 italic mb-2">
-                  "Por tanto, si alguno está en Cristo, es una nueva creación; lo viejo pasó, he aquí todo es hecho
-                  nuevo."
+                  "Por tanto, si alguno está en Cristo, es una nueva creación;
+                  lo viejo pasó, he aquí todo es hecho nuevo."
                 </p>
                 <p className="text-purple-900 font-bold">- 2 Corintios 5:17</p>
               </div>
@@ -626,26 +715,31 @@ export default function Component() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg border-2 border-purple-900">
+              <div className="absolute -bottom-4 -right-4 bg-white p-6 rounded-xl shadow-lg border-2 border-purple-900">
                 <p className="text-purple-900 font-bold text-lg">Libre</p>
-                <p className="text-gray-700 text-sm">con pecado limpio en Cristo</p>
+                <p className="text-gray-700 text-sm">
+                  con pecado limpio en Cristo
+                </p>
               </div>
             </div>
 
             {/* Right Side - Content */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Mi Historia de Libertad</h2>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  Mi Historia de Libertad
+                </h2>
                 <div className="flex items-center mb-8">
-                  <div
-                    className="w-16 h-16 bg-purple-900 rounded-full flex items-center justify-
-center mr-4"
-                  >
+                  <div className="w-16 h-16 bg-purple-900 rounded-full flex items-center justify-center mr-4">
                     <span className="text-white font-bold text-xl">JN</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">Josef Nájera</h3>
-                    <p className="text-gray-600">Creador de contenido Cristiano</p>
+                    <h3 className="text-xl font-bold text-gray-900">
+                      Josef Nájera
+                    </h3>
+                    <p className="text-gray-600">
+                      Creador de contenido Cristiano
+                    </p>
                   </div>
                 </div>
               </div>
@@ -655,29 +749,34 @@ center mr-4"
                   <span className="font-semibold text-purple-900">
                     Durante más de 3 años, fui esclavo de la pornografía.
                   </span>{" "}
-                  Por años me repetí que estaba luchando. Pero en realidad, solo estaba justificando mis recaídas. Veía
-                  a mujeres con lujuria. Me masturbaba y luego lloraba. Y lo llamaba “una batalla”. Hasta que Cristo me
-                  mostró que no estaba batallando.
+                  Por años me repetí que estaba luchando. Pero en realidad, solo
+                  estaba justificando mis recaídas. Veía a mujeres con lujuria.
+                  Me masturbaba y luego lloraba. Y lo llamaba “una batalla”.
+                  Hasta que Cristo me mostró que no estaba batallando.
                 </p>
 
                 <b>Estaba obedeciendo a mi carne.</b>
 
                 <p>
-                  Hoy entiendo que no necesitaba fuerza de voluntad. Solo necesitaba ver la verdad. Darme cuenta de que
-                  no gano nada en el pecado y gano todo con Él.
+                  Hoy entiendo que no necesitaba fuerza de voluntad. Solo
+                  necesitaba ver la verdad. Darme cuenta de que no gano nada en
+                  el pecado y gano todo con Él.
                 </p>
 
                 <div className="bg-white p-6 rounded-xl border-l-4 border-purple-900">
-                  <p className="font-semibold text-purple-900 text-xl mb-2">Dios me limpió.</p>
+                  <p className="font-semibold text-purple-900 text-xl mb-2">
+                    Dios me limpió.
+                  </p>
                   <p>
-                    “Pero fornicación y toda inmundicia… ni aun se nombre entre vosotros, como conviene a santos.” —
-                    Efesios 5:3
+                    “Pero fornicación y toda inmundicia… ni aun se nombre entre
+                    vosotros, como conviene a santos.” — Efesios 5:3
                   </p>
                 </div>
 
                 <p className="font-semibold text-gray-900">
-                  Hoy, después de mucho tiempo sin siquiera quererlo, puedo decirte que la victoria es posible. No
-                  porque yo sea especial, sino porque Cristo lo es.
+                  Hoy, después de mucho tiempo sin siquiera quererlo, puedo
+                  decirte que la victoria es posible. No porque yo sea especial,
+                  sino porque Cristo lo es.
                 </p>
               </div>
             </div>
@@ -692,9 +791,12 @@ center mr-4"
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Lo Que Dicen Otros Hombres</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Lo Que Dicen Otros Hombres
+            </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Miles de hombres han encontrado libertad. Estas son algunas de sus historias.
+              Miles de hombres han encontrado libertad. Estas son algunas de sus
+              historias.
             </p>
           </div>
 
@@ -703,8 +805,10 @@ center mr-4"
               <CardContent className="p-8">
                 <Quote className="h-8 w-8 text-purple-900 mb-4" />
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  "Después de 10 años luchando solo, encontré en Juan Carlos no solo un coach, sino un hermano que
-                  entendía mi dolor. Hoy llevo 2 años libre y mi matrimonio se ha restaurado completamente."
+                  "Después de 10 años luchando solo, encontré en Juan Carlos no
+                  solo un coach, sino un hermano que entendía mi dolor. Hoy
+                  llevo 2 años libre y mi matrimonio se ha restaurado
+                  completamente."
                 </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-purple-900 rounded-full flex items-center justify-center mr-4">
@@ -722,8 +826,9 @@ center mr-4"
               <CardContent className="p-8">
                 <Quote className="h-8 w-8 text-purple-900 mb-4" />
                 <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  "Pensé que nunca podría ser libre. La guía me ayudó a entender que mi identidad no estaba en mi
-                  pecado. Cristo me ha dado una nueva vida y ahora ayudo a otros jóvenes en mi iglesia."
+                  "Pensé que nunca podría ser libre. La guía me ayudó a entender
+                  que mi identidad no estaba en mi pecado. Cristo me ha dado una
+                  nueva vida y ahora ayudo a otros jóvenes en mi iglesia."
                 </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-purple-900 rounded-full flex items-center justify-center mr-4">
@@ -751,33 +856,48 @@ center mr-4"
               ¿Vas a seguir "sobreviviendo" o vas a empezar a obedecer?
             </h2>
             <p className="text-xl mb-16 max-w-3xl mx-auto text-purple-100 leading-relaxed">
-              No necesitas seguir con culpa. No necesitas seguir “intentando”. Necesitas decidir. Ver la verdad. Y dejar
-              que Cristo te libere por completo.{" "}
-              <span className="font-semibold text-white">Descarga la guía ahora</span> y da el primer paso hacia tu
-              libertad.
+              No necesitas seguir con culpa. No necesitas seguir “intentando”.
+              Necesitas decidir. Ver la verdad. Y dejar que Cristo te libere por
+              completo.{" "}
+              <span className="font-semibold text-white">
+                Descarga la guía ahora
+              </span>{" "}
+              y da el primer paso hacia tu libertad.
             </p>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Side - Benefits */}
               <div className="text-left space-y-6">
-                <h3 className="text-2xl font-bold mb-6">"Guía para dejar la lujuria"</h3>
-                <p className="text-purple-100 mb-8 text-lg">Un plan práctico y bíblico que te ayudará a:</p>
+                <h3 className="text-2xl font-bold mb-6">
+                  "Guía para dejar la lujuria"
+                </h3>
+                <p className="text-purple-100 mb-8 text-lg">
+                  Un plan práctico y bíblico que te ayudará a:
+                </p>
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <ArrowRight className="h-5 w-5 text-purple-300 mr-4 flex-shrink-0" />
-                    <span className="text-lg">Entender la raíz espiritual de la adicción</span>
+                    <span className="text-lg">
+                      Entender la raíz espiritual de la adicción
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <ArrowRight className="h-5 w-5 text-purple-300 mr-4 flex-shrink-0" />
-                    <span className="text-lg">Desarrollar estrategias bíblicas para escapar</span>
+                    <span className="text-lg">
+                      Desarrollar estrategias bíblicas para escapar
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <ArrowRight className="h-5 w-5 text-purple-300 mr-4 flex-shrink-0" />
-                    <span className="text-lg">Construir una identidad sólida en Cristo</span>
+                    <span className="text-lg">
+                      Construir una identidad sólida en Cristo
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <ArrowRight className="h-5 w-5 text-purple-300 mr-4 flex-shrink-0" />
-                    <span className="text-lg">Crear un plan de acción personalizado</span>
+                    <span className="text-lg">
+                      Crear un plan de acción personalizado
+                    </span>
                   </div>
                 </div>
               </div>
@@ -787,13 +907,18 @@ center mr-4"
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
                     <Mail className="h-8 w-8 text-purple-900 mx-auto mb-4" />
-                    <h4 className="text-xl font-bold">Obtenla Inmediatamente</h4>
+                    <h4 className="text-xl font-bold">
+                      Obtenla Inmediatamente
+                    </h4>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Full Name Field */}
                     <div>
-                      <label htmlFor="ctaFullName" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label
+                        htmlFor="ctaFullName"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Nombre Completo *
                       </label>
                       <Input
@@ -806,16 +931,25 @@ center mr-4"
                         disabled={isLoading}
                         className={`w-full text-lg py-4 transition-all duration-300 ${
                           isLoading ? "opacity-50 cursor-not-allowed" : ""
-                        } ${validationErrors.fullName ? "border-red-500 focus:border-red-500" : ""}`}
+                        } ${
+                          validationErrors.fullName
+                            ? "border-red-500 focus:border-red-500"
+                            : ""
+                        }`}
                       />
                       {validationErrors.fullName && (
-                        <p className="text-red-600 text-xs mt-1">{validationErrors.fullName}</p>
+                        <p className="text-red-600 text-xs mt-1">
+                          {validationErrors.fullName}
+                        </p>
                       )}
                     </div>
 
                     {/* Email Field */}
                     <div>
-                      <label htmlFor="ctaEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label
+                        htmlFor="ctaEmail"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
                         Correo Electrónico *
                       </label>
                       <div className="relative">
@@ -829,7 +963,11 @@ center mr-4"
                           disabled={isLoading}
                           className={`w-full text-lg py-4 transition-all duration-300 ${
                             isLoading ? "opacity-50 cursor-not-allowed" : ""
-                          } ${validationErrors.email ? "border-red-500 focus:border-red-500" : ""}`}
+                          } ${
+                            validationErrors.email
+                              ? "border-red-500 focus:border-red-500"
+                              : ""
+                          }`}
                         />
                         {isLoading && (
                           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -837,13 +975,19 @@ center mr-4"
                           </div>
                         )}
                       </div>
-                      {validationErrors.email && <p className="text-red-600 text-xs mt-1">{validationErrors.email}</p>}
+                      {validationErrors.email && (
+                        <p className="text-red-600 text-xs mt-1">
+                          {validationErrors.email}
+                        </p>
+                      )}
                     </div>
 
                     <Button
                       type="submit"
                       className={`w-full font-bold py-4 text-lg transition-all duration-300 ${
-                        isLoading ? "bg-purple-700 cursor-not-allowed" : "bg-purple-900 hover:bg-purple-800"
+                        isLoading
+                          ? "bg-purple-700 cursor-not-allowed"
+                          : "bg-purple-900 hover:bg-purple-800"
                       } text-white`}
                       disabled={isLoading}
                     >
@@ -865,7 +1009,8 @@ center mr-4"
                   </form>
 
                   <p className="text-xs text-gray-500 mt-4 text-center">
-                    Respetamos tu privacidad. No compartimos tu información con terceros.
+                    Respetamos tu privacidad. No compartimos tu información con
+                    terceros.
                   </p>
                 </CardContent>
               </Card>
@@ -873,7 +1018,8 @@ center mr-4"
 
             <div className="mt-16 text-center">
               <p className="text-purple-200 text-xl font-medium">
-                Cientos de hombres ya han encontrado libertad. Tú puedes ser el siguiente.
+                Cientos de hombres ya han encontrado libertad. Tú puedes ser el
+                siguiente.
               </p>
             </div>
           </div>
@@ -889,17 +1035,18 @@ center mr-4"
               <span className="text-2xl font-bold">Libertad en Cristo</span>
             </div>
             <p className="text-gray-400 mb-8 text-lg max-w-2xl mx-auto">
-              Ayudando a hombres jóvenes a encontrar libertad de la lujuria y la pornografía a través de la fe en
-              Jesucristo.
+              Ayudando a hombres jóvenes a encontrar libertad de la lujuria y la
+              pornografía a través de la fe en Jesucristo.
             </p>
             <div className="border-t border-gray-700 pt-8">
               <p className="text-gray-500">
-                © {new Date().getFullYear()} Libertad en Cristo. Todos los derechos reservados.
+                © {new Date().getFullYear()} Libertad en Cristo. Todos los
+                derechos reservados.
               </p>
             </div>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
